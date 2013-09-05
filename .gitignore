@@ -1,0 +1,6 @@
+# Ignore lockfiles
+/Gemfile.lock
+
+# Ignore test output
+/spec/coverage
+/spec/reports
