@@ -13,7 +13,7 @@ module OmniAuth
       # initializing your consumer from the OAuth gem.
       option :client_options,
       {
-        site: ENV['BC_AUTH_SERVICE'],
+        site: 'https://login.bigcommerce.com',
         authorize_url: '/oauth2/authorize',
         token_url: '/oauth2/token'
         # TODO: Replace with final service at bigcommerceapp.com
