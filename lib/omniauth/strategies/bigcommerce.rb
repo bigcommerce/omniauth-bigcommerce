@@ -7,24 +7,16 @@ module OmniAuth
 
       option :provider_ignores_state, true
 
-      option :scope, "NullScope" # Default to empty scope.
+      option :scope, "users_basic_information"
 
-      # This is where you pass the options you would pass when
-      # initializing your consumer from the OAuth gem.
       option :client_options,
       {
-        site: ENV['BC_AUTH_SERVICE'],
+        site: ENV['BC_AUTH_SERVICE'] || 'https://login.bigcommerce.com',
         authorize_url: '/oauth2/authorize',
         token_url: '/oauth2/token'
-        # TODO: Replace with final service at bigcommerceapp.com
       }
 
-      # These are called after authentication has succeeded. If
-      # possible, you should try to set the UID without making
-      # additional calls (if the user id is returned with the token
-      # or as a URI parameter). This may not be possible with all
-      # providers.
-      uid{ access_token.params['user']['id'] }
+      uid { access_token.params['user']['id'] }
 
       info do
         {
@@ -43,6 +35,7 @@ module OmniAuth
         {
           raw_info: raw_info,
           scopes: raw_info['scope'],
+          context: raw_info['context']
         }
       end
 
