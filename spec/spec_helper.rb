@@ -1,6 +1,3 @@
-$:.unshift File.expand_path('..', __FILE__)
-$:.unshift File.expand_path('../../lib', __FILE__)
-
 ENV['BC_AUTH_SERVICE'] = 'https://example.com'
 
 require 'simplecov'
