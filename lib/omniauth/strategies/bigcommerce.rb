@@ -16,7 +16,7 @@ module OmniAuth
         token_url: '/oauth2/token'
       }
 
-      uid { access_token.params['user']['id'] }
+      uid { access_token.params['context'] }
 
       info do
         {
