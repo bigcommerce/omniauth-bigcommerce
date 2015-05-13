@@ -1,9 +1,16 @@
 require 'spec_helper'
 
 describe OmniAuth::Strategies::Bigcommerce do
-
   subject do
     OmniAuth::Strategies::Bigcommerce.new({})
+  end
+  
+  before do
+    OmniAuth.config.test_mode = true
+  end
+  
+  after do
+    OmniAuth.config.test_mode = false
   end
 
   context 'client options' do
@@ -35,6 +42,17 @@ describe OmniAuth::Strategies::Bigcommerce do
   context 'callback url' do
     it 'should have the correct path' do
       subject.callback_path.should eq('/auth/bigcommerce/callback')
+    end
+  end
+  
+  context 'authorize options' do
+    describe 'context' do
+      it 'should set the context parameter dynamically in the request' do
+        allow(subject).to receive(:request) do
+          double('Request', :params => {'context' => 'stores/abcdefg'}, :cookies => {}, :env => {})
+        end
+        expect(subject.authorize_params['context']).to eq('stores/abcdefg')
+      end
     end
   end
 end
