@@ -16,8 +16,8 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.1'
   gem.version       = OmniAuth::BigCommerce::VERSION
 
-  gem.add_dependency 'omniauth', '~> 1.0'
-  gem.add_dependency 'omniauth-oauth2', '~> 1.1'
+  gem.add_dependency 'omniauth'
+  gem.add_dependency 'omniauth-oauth2', '>= 1.1.1'
   gem.add_development_dependency 'rake', '~> 2.7'
   gem.add_development_dependency 'rspec', '~> 2.7'
   gem.add_development_dependency 'rack-test'
