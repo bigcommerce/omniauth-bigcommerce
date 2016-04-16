@@ -41,7 +41,7 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
 
   context 'callback url' do
     it 'should have the correct path' do
-      subject.callback_path.should eq('/auth/bigcommerce/callback')
+      expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
   end
   
