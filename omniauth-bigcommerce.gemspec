@@ -4,8 +4,8 @@ require File.expand_path('../lib/omniauth/bigcommerce/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Tom Allen, Phil Muir, Sasha Gerrand"]
   gem.email         = ["developer@bigcommerce.com"]
-  gem.description   = %q{Official OmniAuth strategy for Bigcommerce.}
-  gem.summary       = %q{Official OmniAuth strategy for Bigcommerce.}
+  gem.description   = %q{Official OmniAuth strategy for BigCommerce.}
+  gem.summary       = %q{Official OmniAuth strategy for BigCommerce.}
   gem.homepage      = "https://github.com/bigcommerce/omniauth-bigcommerce"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "omniauth-bigcommerce"
   gem.require_paths = ["lib"]
   gem.required_ruby_version = '>= 2.1'
-  gem.version       = OmniAuth::Bigcommerce::VERSION
+  gem.version       = OmniAuth::BigCommerce::VERSION
 
   gem.add_dependency 'omniauth', '~> 1.0'
   gem.add_dependency 'omniauth-oauth2', '~> 1.1'

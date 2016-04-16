@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe OmniAuth::Strategies::Bigcommerce do
+describe OmniAuth::Strategies::BigCommerce do
   subject do
-    OmniAuth::Strategies::Bigcommerce.new({})
+    OmniAuth::Strategies::BigCommerce.new({})
   end
   
   before do
