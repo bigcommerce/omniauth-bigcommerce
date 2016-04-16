@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe OmniAuth::Strategies::BigCommerce do
+RSpec.describe OmniAuth::Strategies::BigCommerce do
   subject do
     OmniAuth::Strategies::BigCommerce.new({})
   end
