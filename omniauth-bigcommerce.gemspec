@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "omniauth-bigcommerce"
   gem.require_paths = ["lib"]
+  gem.required_ruby_version = '>= 2.1'
   gem.version       = OmniAuth::Bigcommerce::VERSION
 
   gem.add_dependency 'omniauth', '~> 1.0'
