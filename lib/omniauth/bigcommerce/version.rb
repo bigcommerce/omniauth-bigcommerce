@@ -1,5 +1,5 @@
 module OmniAuth
-  module Bigcommerce
+  module BigCommerce
     VERSION = "0.2.0"
   end
 end

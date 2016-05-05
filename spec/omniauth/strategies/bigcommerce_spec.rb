@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe OmniAuth::Strategies::Bigcommerce do
+RSpec.describe OmniAuth::Strategies::BigCommerce do
   subject do
-    OmniAuth::Strategies::Bigcommerce.new({})
+    OmniAuth::Strategies::BigCommerce.new({})
   end
   
   before do
@@ -13,35 +13,37 @@ describe OmniAuth::Strategies::Bigcommerce do
     OmniAuth.config.test_mode = false
   end
 
-  context 'client options' do
+  context 'options' do
     it 'should have correct name' do
       expect(subject.options.name).to eq('bigcommerce')
     end
 
-    it 'should have correct site' do
-      # env variable set in spec_helper.rb
-      # TODO: change this once we have bigcommerceapp.com url
-      expect(subject.options.client_options.site).to eq('https://example.com')
+    context 'client options' do
+      it 'should have correct site' do
+        # env variable set in spec_helper.rb
+        # TODO: change this once we have bigcommerceapp.com url
+        expect(subject.options.client_options.site).to eq('https://example.com')
+      end
+
+      it 'should have correct authorize url' do
+        expect(subject.options.client_options.authorize_url).to eq('/oauth2/authorize')
+      end
+
+      it 'should have correct token url' do
+        expect(subject.options.client_options.token_url).to eq('/oauth2/token')
+      end
     end
 
-    it 'should have correct authorize url' do
-      expect(subject.options.client_options.authorize_url).to eq('/oauth2/authorize')
-    end
-
-    it 'should have correct token url' do
-      expect(subject.options.client_options.token_url).to eq('/oauth2/token')
-    end
-  end
-
-  context 'oauth2 settings' do
-    it 'should ignore state' do
-      expect(subject.options.provider_ignores_state).to eq true
+    context 'OAuth2 settings' do
+      it 'should ignore state' do
+        expect(subject.options.provider_ignores_state).to eq true
+      end
     end
   end
 
   context 'callback url' do
     it 'should have the correct path' do
-      subject.callback_path.should eq('/auth/bigcommerce/callback')
+      expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
   end
   

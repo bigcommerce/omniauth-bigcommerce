@@ -4,8 +4,8 @@ require File.expand_path('../lib/omniauth/bigcommerce/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Tom Allen, Phil Muir, Sasha Gerrand"]
   gem.email         = ["developer@bigcommerce.com"]
-  gem.description   = %q{Official OmniAuth strategy for Bigcommerce.}
-  gem.summary       = %q{Official OmniAuth strategy for Bigcommerce.}
+  gem.description   = %q{Official OmniAuth strategy for BigCommerce.}
+  gem.summary       = %q{Official OmniAuth strategy for BigCommerce.}
   gem.homepage      = "https://github.com/bigcommerce/omniauth-bigcommerce"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -13,12 +13,13 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "omniauth-bigcommerce"
   gem.require_paths = ["lib"]
-  gem.version       = OmniAuth::Bigcommerce::VERSION
+  gem.required_ruby_version = '>= 2.1'
+  gem.version       = OmniAuth::BigCommerce::VERSION
 
-  gem.add_dependency 'omniauth', '~> 1.0'
-  gem.add_dependency 'omniauth-oauth2', '~> 1.1'
-  gem.add_development_dependency 'rake', '~> 2.7'
-  gem.add_development_dependency 'rspec', '~> 2.7'
+  gem.add_dependency 'omniauth'
+  gem.add_dependency 'omniauth-oauth2', '>= 1.1.1'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rack-test'
   gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'webmock'

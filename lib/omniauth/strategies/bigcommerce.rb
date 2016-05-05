@@ -2,7 +2,7 @@ require 'omniauth-oauth2'
 
 module OmniAuth
   module Strategies
-    class Bigcommerce < OmniAuth::Strategies::OAuth2
+    class BigCommerce < OmniAuth::Strategies::OAuth2
       option :name, "bigcommerce"
 
       option :provider_ignores_state, true
@@ -57,4 +57,4 @@ module OmniAuth
   end
 end
 
-OmniAuth.config.add_camelization 'bigcommerce', 'Bigcommerce'
+OmniAuth.config.add_camelization 'bigcommerce', 'BigCommerce'
