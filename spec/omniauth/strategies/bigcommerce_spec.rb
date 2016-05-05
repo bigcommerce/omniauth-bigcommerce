@@ -1,17 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe OmniAuth::Strategies::BigCommerce do
-  subject do
-    OmniAuth::Strategies::BigCommerce.new({})
-  end
+  let(:store_hash) { 'abcdefg' }
+  let(:context) { "stores/#{store_hash}" }
+  let(:scope) { 'store_v2_products' }
+  let(:request) { double('Request', :params => { 'context' => context, 'scope' => scope }, :cookies => {}, :env => {}) }
 
   before do
     OmniAuth.config.test_mode = true
+    allow(subject).to receive(:request).and_return(request)
   end
-
-  after do
-    OmniAuth.config.test_mode = false
-  end
+  after { OmniAuth.config.test_mode = false }
+  subject { OmniAuth::Strategies::BigCommerce.new({}) }
 
   describe 'options' do
     it 'should have correct name' do
@@ -45,40 +45,30 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
     it 'should have the correct path' do
       expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
-    
-    it 'should use no query string for callback url' do
-      request = double('Request', :params => {}, :cookies => {}, :env => {})
-      allow(request).to receive(:scheme).and_return('http')
-      allow(request).to receive(:url).and_return('http://example.com')
 
-      allow(subject).to receive(:request).and_return(request)
-      allow(subject).to receive(:script_name).and_return('')
+    context 'when callback url has a query string' do
+      let(:host) { 'https://example.com' }
+      let(:query_string) { 'foo=bar' }
+      before do
+        allow(subject).to receive(:full_host).and_return(host)
+        allow(subject).to receive(:script_name).and_return('')
+        allow(subject).to receive(:query_string).and_return(query_string)
+      end
 
-      subject.callback_url
+      it 'query string should not be included in the callback url' do
+        expect(subject.callback_url).to eq("#{host}#{subject.callback_path}")
+        expect(subject.callback_url).to_not include(query_string)
+      end
     end
   end
 
-  describe 'authorize options' do
-    let(:context) { 'stores/abcdefg' }
-    let(:scope) { 'store_v2_products' }
-
+  describe 'extra params for authorize and token exchange' do
     it 'should set the context and scope parameters in the authorize request' do
-      allow(subject).to receive(:request) do
-        double('Request', :params => {'context' => context, 'scope' => scope}, :cookies => {}, :env => {})
-      end
       expect(subject.authorize_params['context']).to eq(context)
       expect(subject.authorize_params['scope']).to eq(scope)
     end
-  end
-
-  describe 'token options' do
-    let(:context) { 'stores/abcdefg' }
-    let(:scope) { 'store_v2_products' }
 
     it 'should set the context and scope parameters in the token request' do
-      allow(subject).to receive(:request) do
-        double('Request', :params => {'context' => context, 'scope' => scope}, :cookies => {}, :env => {})
-      end
       expect(subject.token_params['context']).to eq(context)
       expect(subject.token_params['scope']).to eq(scope)
     end
