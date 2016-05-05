@@ -13,12 +13,12 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
     OmniAuth.config.test_mode = false
   end
 
-  context 'options' do
+  describe 'options' do
     it 'should have correct name' do
       expect(subject.options.name).to eq('bigcommerce')
     end
 
-    context 'client options' do
+    describe 'client options' do
       it 'should have correct site' do
         # env variable set in spec_helper.rb
         # TODO: change this once we have bigcommerceapp.com url
@@ -34,14 +34,14 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       end
     end
 
-    context 'OAuth2 settings' do
+    describe 'OAuth2 settings' do
       it 'should ignore state' do
         expect(subject.options.provider_ignores_state).to eq true
       end
     end
   end
 
-  context 'callback url' do
+  describe 'callback url' do
     it 'should have the correct path' do
       expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
@@ -58,14 +58,29 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
     end
   end
 
-  context 'authorize options' do
-    describe 'context' do
-      it 'should set the context parameter dynamically in the request' do
-        allow(subject).to receive(:request) do
-          double('Request', :params => {'context' => 'stores/abcdefg'}, :cookies => {}, :env => {})
-        end
-        expect(subject.authorize_params['context']).to eq('stores/abcdefg')
+  describe 'authorize options' do
+    let(:context) { 'stores/abcdefg' }
+    let(:scope) { 'store_v2_products' }
+
+    it 'should set the context and scope parameters in the authorize request' do
+      allow(subject).to receive(:request) do
+        double('Request', :params => {'context' => context, 'scope' => scope}, :cookies => {}, :env => {})
       end
+      expect(subject.authorize_params['context']).to eq(context)
+      expect(subject.authorize_params['scope']).to eq(scope)
+    end
+  end
+
+  describe 'token options' do
+    let(:context) { 'stores/abcdefg' }
+    let(:scope) { 'store_v2_products' }
+
+    it 'should set the context and scope parameters in the token request' do
+      allow(subject).to receive(:request) do
+        double('Request', :params => {'context' => context, 'scope' => scope}, :cookies => {}, :env => {})
+      end
+      expect(subject.token_params['context']).to eq(context)
+      expect(subject.token_params['scope']).to eq(scope)
     end
   end
 end
