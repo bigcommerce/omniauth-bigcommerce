@@ -2,3 +2,5 @@
 Gemfile.lock
 coverage
 reports
+pkg
+vendor/bundle

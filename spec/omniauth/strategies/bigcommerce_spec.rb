@@ -1,24 +1,24 @@
 require 'spec_helper'
 
 RSpec.describe OmniAuth::Strategies::BigCommerce do
-  subject do
-    OmniAuth::Strategies::BigCommerce.new({})
-  end
+  let(:store_hash) { 'abcdefg' }
+  let(:context) { "stores/#{store_hash}" }
+  let(:scope) { 'store_v2_products' }
+  let(:request) { double('Request', :params => { 'context' => context, 'scope' => scope }, :cookies => {}, :env => {}) }
 
   before do
     OmniAuth.config.test_mode = true
+    allow(subject).to receive(:request).and_return(request)
   end
+  after { OmniAuth.config.test_mode = false }
+  subject { OmniAuth::Strategies::BigCommerce.new({}) }
 
-  after do
-    OmniAuth.config.test_mode = false
-  end
-
-  context 'options' do
+  describe 'options' do
     it 'should have correct name' do
       expect(subject.options.name).to eq('bigcommerce')
     end
 
-    context 'client options' do
+    describe 'client options' do
       it 'should have correct site' do
         # env variable set in spec_helper.rb
         # TODO: change this once we have bigcommerceapp.com url
@@ -34,38 +34,43 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       end
     end
 
-    context 'OAuth2 settings' do
+    describe 'OAuth2 settings' do
       it 'should ignore state' do
         expect(subject.options.provider_ignores_state).to eq true
       end
     end
   end
 
-  context 'callback url' do
+  describe 'callback url' do
     it 'should have the correct path' do
       expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
-    
-    it 'should use no query string for callback url' do
-      request = double('Request', :params => {}, :cookies => {}, :env => {})
-      allow(request).to receive(:scheme).and_return('http')
-      allow(request).to receive(:url).and_return('http://example.com')
 
-      allow(subject).to receive(:request).and_return(request)
-      allow(subject).to receive(:script_name).and_return('')
+    context 'when callback url has a query string' do
+      let(:host) { 'https://example.com' }
+      let(:query_string) { 'foo=bar' }
+      before do
+        allow(subject).to receive(:full_host).and_return(host)
+        allow(subject).to receive(:script_name).and_return('')
+        allow(subject).to receive(:query_string).and_return(query_string)
+      end
 
-      subject.callback_url
+      it 'query string should not be included in the callback url' do
+        expect(subject.callback_url).to eq("#{host}#{subject.callback_path}")
+        expect(subject.callback_url).to_not include(query_string)
+      end
     end
   end
 
-  context 'authorize options' do
-    describe 'context' do
-      it 'should set the context parameter dynamically in the request' do
-        allow(subject).to receive(:request) do
-          double('Request', :params => {'context' => 'stores/abcdefg'}, :cookies => {}, :env => {})
-        end
-        expect(subject.authorize_params['context']).to eq('stores/abcdefg')
-      end
+  describe 'extra params for authorize and token exchange' do
+    it 'should set the context and scope parameters in the authorize request' do
+      expect(subject.authorize_params['context']).to eq(context)
+      expect(subject.authorize_params['scope']).to eq(scope)
+    end
+
+    it 'should set the context and scope parameters in the token request' do
+      expect(subject.token_params['context']).to eq(context)
+      expect(subject.token_params['scope']).to eq(scope)
     end
   end
 end
