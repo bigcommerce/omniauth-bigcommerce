@@ -1,6 +1,4 @@
-# Ignore lockfiles
-/Gemfile.lock
-
-# Ignore test output
-/spec/coverage
-/spec/reports
+.bundle
+Gemfile.lock
+coverage
+reports
