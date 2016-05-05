@@ -3,16 +3,11 @@ require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
     class BigCommerce < OmniAuth::Strategies::OAuth2
-      option :name, "bigcommerce"
-
+      option :name, 'bigcommerce'
       option :provider_ignores_state, true
-
-      option :scope, "users_basic_information"
-
+      option :scope, 'users_basic_information'
       option :authorize_options, [:scope, :context]
-
-      option :client_options,
-      {
+      option :client_options, {
         site: ENV['BC_AUTH_SERVICE'] || 'https://login.bigcommerce.com',
         authorize_url: '/oauth2/authorize',
         token_url: '/oauth2/token'
@@ -29,7 +24,7 @@ module OmniAuth
 
       credentials do
         {
-          :token => access_token
+          token: access_token
         }
       end
 
@@ -45,7 +40,7 @@ module OmniAuth
         @raw_info ||= access_token.params
       end
 
-      #Copied from OmniAuth Google OAuth2 (https://github.com/zquestz/omniauth-google-oauth2)
+      # Copied from OmniAuth Google OAuth2 (https://github.com/zquestz/omniauth-google-oauth2)
       def authorize_params
         super.tap do |params|
           options[:authorize_options].each do |k|

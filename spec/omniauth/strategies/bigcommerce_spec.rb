@@ -4,11 +4,11 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
   subject do
     OmniAuth::Strategies::BigCommerce.new({})
   end
-  
+
   before do
     OmniAuth.config.test_mode = true
   end
-  
+
   after do
     OmniAuth.config.test_mode = false
   end
@@ -46,7 +46,7 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
   end
-  
+
   context 'authorize options' do
     describe 'context' do
       it 'should set the context parameter dynamically in the request' do

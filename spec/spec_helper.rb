@@ -2,6 +2,7 @@ ENV['BC_AUTH_SERVICE'] = 'https://example.com'
 
 require 'simplecov'
 SimpleCov.start
+
 require 'omniauth-bigcommerce'
 
 RSpec.configure do |config|
