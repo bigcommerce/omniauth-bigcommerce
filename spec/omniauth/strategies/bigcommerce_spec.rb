@@ -45,6 +45,17 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
     it 'should have the correct path' do
       expect(subject.callback_path).to eq('/auth/bigcommerce/callback')
     end
+    
+    it 'should use no query string for callback url' do
+      request = double('Request', :params => {}, :cookies => {}, :env => {})
+      allow(request).to receive(:scheme).and_return('http')
+      allow(request).to receive(:url).and_return('http://example.com')
+
+      allow(subject).to receive(:request).and_return(request)
+      allow(subject).to receive(:script_name).and_return('')
+
+      subject.callback_url
+    end
   end
 
   context 'authorize options' do
