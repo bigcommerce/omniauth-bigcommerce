@@ -41,12 +41,6 @@ module OmniAuth
         }
       end
 
-      credentials do
-        {
-          token: access_token
-        }
-      end
-
       extra do
         {
           raw_info: raw_info,
