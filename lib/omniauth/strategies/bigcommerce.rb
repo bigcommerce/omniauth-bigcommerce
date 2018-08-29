@@ -54,9 +54,11 @@ module OmniAuth
         @raw_info ||= access_token.params
       end
 
+      # Exclude query string in callback url. This used to be part of omniauth-oauth2, but was
+      # removed in 1.4.0: https://github.com/intridea/omniauth-oauth2/pull/70
       def callback_url
         override = options.redirect_uri
-        override ? override : super
+        override ? override : full_host + script_name + callback_path
       end
 
       # Make sure to pass scope and context through to the authorize call
