@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2017-present, BigCommerce Pty. Ltd. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -13,7 +15,7 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-require File.expand_path('../lib/omniauth/bigcommerce/version', __FILE__)
+require File.expand_path('lib/omniauth/bigcommerce/version', __dir__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ['BigCommerce Engineering']
@@ -29,7 +31,7 @@ Gem::Specification.new do |gem|
   gem.version       = OmniAuth::BigCommerce::VERSION
   gem.license       = 'MIT'
 
-  gem.add_dependency 'oauth2', ['>= 1.4.4']
+  gem.add_dependency 'oauth2', '>= 1.4.4'
   gem.add_dependency 'omniauth'
   gem.add_dependency 'omniauth-oauth2', '>= 1.5'
   gem.add_development_dependency 'rake'
