@@ -4,6 +4,7 @@ Changelog for the omniauth-bigcommerce gem.
 
 ### 0.3.3
 
+- Add Standard BigCommerce OSS Documentation
 - Upgrade `oauth2` gem to 1.4.4 or above
 
 ### 0.3.2
