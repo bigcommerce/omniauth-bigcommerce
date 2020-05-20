@@ -15,6 +15,6 @@
 #
 module OmniAuth
   module BigCommerce
-    VERSION = '0.3.3.pre'.freeze
+    VERSION = '0.3.3'.freeze
   end
 end
