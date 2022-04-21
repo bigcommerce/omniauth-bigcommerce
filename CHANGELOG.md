@@ -2,6 +2,10 @@ Changelog for the omniauth-bigcommerce gem.
 
 ### Pending release
 
+### 0.4.0
+
+- Adds account_uuid to response payload
+
 ### 0.3.3
 
 - Add Standard BigCommerce OSS Documentation

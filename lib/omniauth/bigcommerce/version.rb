@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2017-present, BigCommerce Pty. Ltd. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -15,6 +17,6 @@
 #
 module OmniAuth
   module BigCommerce
-    VERSION = '0.3.4.pre'.freeze
+    VERSION = '0.4.0'
   end
 end
