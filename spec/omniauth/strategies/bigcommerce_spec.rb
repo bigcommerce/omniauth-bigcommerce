@@ -5,7 +5,7 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
   let(:context) { "stores/#{store_hash}" }
   let(:scope) { 'store_v2_products' }
   let(:account_uuid) { 'foobar' }
-  let(:request) { double('Request', :params => { 'context' => context, 'scope' => scope, 'account_uuid' => account_uuid }, :cookies => {}, :env => {}) }
+  let(:request) { double('Request', params: { 'context' => context, 'scope' => scope, 'account_uuid' => account_uuid }, cookies: {}, env: {}) }
 
   before do
     OmniAuth.config.test_mode = true

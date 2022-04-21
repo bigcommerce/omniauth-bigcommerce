@@ -52,7 +52,7 @@ module OmniAuth
           raw_info: raw_info,
           scopes: raw_info['scope'],
           context: raw_info['context'],
-          account_uuid: raw_info['account_uuid']
+          account_uuid: raw_info.fetch('account_uuid', '')
         }
       end
 
