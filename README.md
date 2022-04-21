@@ -1,7 +1,7 @@
 # OmniAuth Bigcommerce Strategy
 [![Build Status](https://travis-ci.org/bigcommerce/omniauth-bigcommerce.png?branch=master)](https://travis-ci.org/bigcommerce/omniauth-bigcommerce)
 
-This gem provides a dead simple way to authenticate to Bigcommerce using OmniAuth.
+This gem provides a simple way to authenticate to Bigcommerce using OmniAuth.
 
 ## Installation
 
@@ -42,14 +42,14 @@ It defaults to https://login.bigcommerce.com if the env variable is not defined.
 
 ## Auth Hash Schema
 
-The following information is provided back to you for this provider:
+The following response format is provided back to you for this provider:
 
 ```
 {
   uid: '12345',
   info: {
-    name: 'Philip Muir',
-    email: 'philip.muir@example.com'
+    name: 'John Doe',
+    email: 'john.doe@example.com'
   },
   credentials: {
     token: 'xyz123abc'
@@ -57,7 +57,8 @@ The following information is provided back to you for this provider:
   extra: {
     raw_info: {},
     scopes: 'requested_scopes store_v2_settings'
-    context: 'store/xyz123'
+    context: 'store/xyz123',
+    account_uuid: 'fooBar'
   }
 }
 ```

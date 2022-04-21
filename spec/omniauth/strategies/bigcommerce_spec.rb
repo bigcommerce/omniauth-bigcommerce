@@ -4,7 +4,8 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
   let(:store_hash) { 'abcdefg' }
   let(:context) { "stores/#{store_hash}" }
   let(:scope) { 'store_v2_products' }
-  let(:request) { double('Request', :params => { 'context' => context, 'scope' => scope }, :cookies => {}, :env => {}) }
+  let(:account_uuid) { 'foobar' }
+  let(:request) { double('Request', params: { 'context' => context, 'scope' => scope, 'account_uuid' => account_uuid }, cookies: {}, env: {}) }
 
   before do
     OmniAuth.config.test_mode = true
@@ -71,6 +72,7 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
     it 'should set the context and scope parameters in the token request' do
       expect(subject.token_params['context']).to eq(context)
       expect(subject.token_params['scope']).to eq(scope)
+      expect(subject.token_params['account_uuid']).to eq(account_uuid)
     end
   end
 end
