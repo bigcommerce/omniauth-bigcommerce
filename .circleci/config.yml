@@ -57,9 +57,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}
-            - <<parameters.gem_cache_key>>
+            - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "omniauth-bigcommerce.gemspec" }}-{{checksum "Gemfile"}}
       - run:
           name: "bundle install"
           command: |
@@ -68,7 +66,7 @@ commands:
             bundle check || bundle install
             bundle clean
       - save_cache:
-          key: <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "omniauth-bigcommerce.gemspec" }}-{{checksum "Gemfile"}
           paths:
             - vendor/bundle
   rspec-unit:
@@ -96,8 +94,8 @@ commands:
         type: string
         default: ""
     steps:
-      - run: bundle exec bundle-audit update
-      - run: bundle exec bundle-audit check -v <<parameters.additional_args>>
+      - run: bundle exec bundle audit update
+      - run: bundle exec bundle audit
   rubocop:
     steps:
       - run: bundle exec rubocop -P
@@ -131,16 +129,11 @@ jobs:
       e:
         type: executor
         default: "ruby_3_0"
-      code-climate:
-        type: boolean
-        default: false
     steps:
       - pre-setup
       - bundle-install:
           <<: *gem_cache_key
-      - rspec-unit:
-          code-climate: <<parameters.code-climate>>
-
+      - rspec-unit
 workflows:
   version: 2
   ruby_2_7:
@@ -154,10 +147,6 @@ workflows:
       - rspec-unit:
           name: "ruby-2_7-rspec"
           e: "ruby_2_7"
-          code-climate: false
-      - e2e:
-          name: "ruby-2_7-e2e"
-          e: "ruby_2_7"
   ruby_3_0:
     jobs:
       - bundle-audit:
@@ -169,9 +158,6 @@ workflows:
       - rspec-unit:
           name: "ruby-3_0-rspec"
           e: "ruby_3_0"
-      - e2e:
-          name: "ruby-3_0-e2e"
-          e: "ruby_3_0"
   ruby_3_1:
     jobs:
       - bundle-audit:
@@ -182,9 +168,6 @@ workflows:
           e: "ruby_3_1"
       - rspec-unit:
           name: "ruby-3_1-rspec"
-          e: "ruby_3_1"
-      - e2e:
-          name: "ruby-3_1-e2e"
           e: "ruby_3_1"
   ruby_3_2:
     jobs:

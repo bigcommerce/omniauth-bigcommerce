@@ -86,6 +86,10 @@ module OmniAuth
         end
       end
 
+      ##
+      # Checks for nil or empty values
+      # @param [String|nil] value
+      # @return [Boolean]
       def blank?(value)
         value.nil? || value.empty?
       end
