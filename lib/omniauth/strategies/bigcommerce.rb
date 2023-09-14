@@ -30,8 +30,8 @@ module OmniAuth
       option :token_options, %i[scope context account_uuid]
       option :client_options,
              site: ENV.fetch('BC_AUTH_SERVICE', 'https://login.bigcommerce.com'),
-             authorize_url: '/oauth2/authorize',
-             token_url: '/oauth2/token'
+             authorize_url: 'oauth2/authorize',
+             token_url: 'oauth2/token'
 
       uid { access_token.params['user']['id'] }
 
@@ -64,7 +64,7 @@ module OmniAuth
       # Exclude query string in callback url. This used to be part of omniauth-oauth2, but was
       # removed in 1.4.0: https://github.com/intridea/omniauth-oauth2/pull/70
       def callback_url
-        full_host + script_name + callback_path
+        full_host + callback_path
       end
 
       # Make sure to pass scope and context through to the authorize call
