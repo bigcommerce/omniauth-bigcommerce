@@ -58,7 +58,7 @@ The following response format is provided back to you for this provider:
     raw_info: {},
     scopes: 'requested_scopes store_v2_settings'
     context: 'store/xyz123',
-    account_uuid: 'fooBar'
+    account_uuid: '3D2D8C24-8378-4180-9550-69A95ABDFAAF'
   }
 }
 ```

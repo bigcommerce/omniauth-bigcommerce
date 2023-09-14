@@ -27,14 +27,12 @@ Gem::Specification.new do |gem|
   gem.files         = Dir['README.md', 'lib/**/*', 'omniauth-bigcommerce.gemspec', 'Gemfile']
   gem.name          = 'omniauth-bigcommerce'
   gem.require_paths = ['lib']
-  gem.required_ruby_version = '>= 2.1'
+  gem.required_ruby_version = '>= 2.7.5'
   gem.version       = OmniAuth::BigCommerce::VERSION
   gem.license       = 'MIT'
 
-  gem.add_dependency 'oauth2', '>= 1.4.4'
+  gem.add_dependency 'oauth2', '>= 2.0.0'
   gem.add_dependency 'omniauth'
-  gem.add_dependency 'omniauth-oauth2', '>= 1.5'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'simplecov'
+  gem.add_dependency 'omniauth-oauth2', '>= 1.7'
+  gem.metadata['rubygems_mfa_required'] = 'true'
 end
