@@ -96,8 +96,8 @@ commands:
         type: string
         default: ""
     steps:
-      - run: bundle exec bundle-audit update
-      - run: bundle exec bundle-audit check -v <<parameters.additional_args>>
+      - run: bundle exec bundle audit update
+      - run: bundle exec bundle audit
   rubocop:
     steps:
       - run: bundle exec rubocop -P
