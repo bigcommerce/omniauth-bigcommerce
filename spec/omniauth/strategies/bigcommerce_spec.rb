@@ -15,6 +15,7 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
   before do
     OmniAuth.config.test_mode = true
     allow(subject).to receive(:request).and_return(request)
+    allow(subject).to receive(:script_name).and_return('')
   end
   after { OmniAuth.config.test_mode = false }
   subject { OmniAuth::Strategies::BigCommerce.new({}) }
@@ -57,7 +58,6 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       let(:query_string) { 'foo=bar' }
       before do
         allow(subject).to receive(:full_host).and_return(host)
-        allow(subject).to receive(:script_name).and_return('')
         allow(subject).to receive(:query_string).and_return(query_string)
       end
 
