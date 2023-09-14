@@ -34,7 +34,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'oauth2', '>= 1.4.4'
   gem.add_dependency 'omniauth'
   gem.add_dependency 'omniauth-oauth2', '>= 1.5'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec'
-  gem.add_development_dependency 'simplecov'
+  gem.metadata['rubygems_mfa_required'] = 'true'
 end

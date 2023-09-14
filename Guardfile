@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2017-present, BigCommerce Pty. Ltd. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -16,7 +18,7 @@
 guard 'rspec', version: 2 do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { "spec" }
+  watch('spec/spec_helper.rb')  { 'spec' }
 end
 
 guard 'bundler' do

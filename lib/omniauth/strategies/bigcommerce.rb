@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2017-present, BigCommerce Pty. Ltd. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -24,13 +26,12 @@ module OmniAuth
       option :name, 'bigcommerce'
       option :provider_ignores_state, true
       option :scope, 'users_basic_information'
-      option :authorize_options, [:scope, :context]
-      option :token_options, [:scope, :context, :account_uuid]
+      option :authorize_options, %i[scope context]
+      option :token_options, %i[scope context account_uuid]
       option :client_options,
              site: ENV.fetch('BC_AUTH_SERVICE', 'https://login.bigcommerce.com'),
              authorize_url: '/oauth2/authorize',
              token_url: '/oauth2/token'
-
 
       uid { access_token.params['user']['id'] }
 
@@ -71,7 +72,7 @@ module OmniAuth
       def authorize_params
         super.tap do |params|
           options[:authorize_options].each do |k|
-            params[k] = request.params[k.to_s] unless [nil, ''].include?(request.params[k.to_s])
+            params[k] = request.params[k.to_s] unless blank?(request.params[k.to_s])
           end
         end
       end
@@ -80,9 +81,17 @@ module OmniAuth
       def token_params
         super.tap do |params|
           options[:token_options].each do |k|
-            params[k] = request.params[k.to_s] unless [nil, ''].include?(request.params[k.to_s])
+            params[k] = request.params[k.to_s] unless blank?(request.params[k.to_s])
           end
         end
+      end
+
+      ##
+      # Checks for nil or empty values
+      # @param [String|nil] value
+      # @return [Boolean]
+      def blank?(value)
+        value.nil? || value.empty?
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2017-present, BigCommerce Pty. Ltd. All rights reserved
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
@@ -16,3 +18,12 @@
 source 'https://rubygems.org'
 
 gemspec
+
+gem 'bundler-audit', '>= 0.9'
+gem 'rake', '~> 13.0'
+gem 'rspec', '~> 3.0'
+gem 'rspec_junit_formatter'
+gem 'rubocop', '~> 1.21'
+gem 'rubocop-performance', '~> 1.19.0'
+gem 'rubocop-thread_safety', '~> 0.5.1'
+gem 'simplecov'

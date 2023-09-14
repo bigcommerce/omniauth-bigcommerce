@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['BC_AUTH_SERVICE'] = 'https://example.com'
 
 require 'simplecov'
@@ -10,4 +12,3 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 end
-
