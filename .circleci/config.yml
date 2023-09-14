@@ -57,7 +57,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "omniauth-bigcommerce.gemspec" }}
             - <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}
             - <<parameters.gem_cache_key>>
       - run:
@@ -68,7 +68,7 @@ commands:
             bundle check || bundle install
             bundle clean
       - save_cache:
-          key: <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: <<parameters.gem_cache_key>>-{{ arch }}-{{ .Branch }}-{{ checksum "omniauth-bigcommerce.gemspec" }}
           paths:
             - vendor/bundle
   rspec-unit:
