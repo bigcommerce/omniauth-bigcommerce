@@ -31,7 +31,7 @@ Gem::Specification.new do |gem|
   gem.version       = OmniAuth::BigCommerce::VERSION
   gem.license       = 'MIT'
 
-  gem.add_dependency 'oauth2', '>= 1.4.4'
+  gem.add_dependency 'oauth2', '>= 1.4.4', '< 2'
   gem.add_dependency 'omniauth'
   gem.add_dependency 'omniauth-oauth2', '>= 1.5'
   gem.metadata['rubygems_mfa_required'] = 'true'
