@@ -2,7 +2,7 @@ Changelog for the omniauth-bigcommerce gem.
 
 ### Pending release
 
-### 0.4.1
+### 0.5.0
 
 - Ensure `oauth2` gem is below 2.0
 
