@@ -31,7 +31,11 @@ module OmniAuth
       option :client_options,
              site: ENV.fetch('BC_AUTH_SERVICE', 'https://login.bigcommerce.com'),
              authorize_url: '/oauth2/authorize',
-             token_url: '/oauth2/token'
+             token_url: '/oauth2/token',
+             # oauth2 2.x defaults auth_scheme to :basic_auth, which sends the client
+             # credentials in the Authorization header. BigCommerce's token endpoint
+             # expects them in the request body, so preserve the oauth2 1.x behavior.
+             auth_scheme: :request_body
 
       uid { access_token.params['user']['id'] }
 
