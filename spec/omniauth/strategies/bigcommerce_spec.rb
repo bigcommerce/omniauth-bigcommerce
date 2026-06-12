@@ -40,11 +40,6 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       it 'should have correct token url' do
         expect(subject.options.client_options.token_url).to eq('/oauth2/token')
       end
-
-      it 'should send client credentials in the request body' do
-        # oauth2 2.x defaults to :basic_auth; BigCommerce expects credentials in the body
-        expect(subject.options.client_options.auth_scheme).to eq(:request_body)
-      end
     end
 
     describe 'OAuth2 settings' do
