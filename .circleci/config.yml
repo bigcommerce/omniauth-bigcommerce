@@ -16,30 +16,24 @@ gem_cache_key: &gem_cache_key
   gem_cache_key: "gem-cache-v2"
 
 executors:
-  ruby_2_7:
+  ruby_3_3:
     <<: *ruby_env
     parameters:
       ruby-version:
         type: string
-        default: "2.7"
-  ruby_3_0:
+        default: "3.3"
+  ruby_3_4:
     <<: *ruby_env
     parameters:
       ruby-version:
         type: string
-        default: "3.0"
-  ruby_3_1:
+        default: "3.4"
+  ruby_4_0:
     <<: *ruby_env
     parameters:
       ruby-version:
         type: string
-        default: "3.1"
-  ruby_3_2:
-    <<: *ruby_env
-    parameters:
-      ruby-version:
-        type: string
-        default: "3.2"
+        default: "4.0"
 
 commands:
   pre-setup:
@@ -108,7 +102,7 @@ jobs:
     parameters:
       e:
         type: executor
-        default: "ruby_3_0"
+        default: "ruby_3_3"
     steps:
       - pre-setup
       - bundle-install:
@@ -119,7 +113,7 @@ jobs:
     parameters:
       e:
         type: executor
-        default: "ruby_3_0"
+        default: "ruby_3_3"
     steps:
       - pre-setup
       - bundle-install:
@@ -130,7 +124,7 @@ jobs:
     parameters:
       e:
         type: executor
-        default: "ruby_3_0"
+        default: "ruby_3_3"
     steps:
       - pre-setup
       - bundle-install:
@@ -139,47 +133,36 @@ jobs:
 
 workflows:
   version: 2
-  ruby_2_7:
+  ruby_3_3:
     jobs:
       - bundle-audit:
-          name: "ruby-2_7-bundle_audit"
-          e: "ruby_2_7"
+          name: "ruby-3_3-bundle_audit"
+          e: "ruby_3_3"
       - rubocop:
-          name: "ruby-2_7-rubocop"
-          e: "ruby_2_7"
+          name: "ruby-3_3-rubocop"
+          e: "ruby_3_3"
       - rspec-unit:
-          name: "ruby-2_7-rspec"
-          e: "ruby_2_7"
-  ruby_3_0:
+          name: "ruby-3_3-rspec"
+          e: "ruby_3_3"
+  ruby_3_4:
     jobs:
       - bundle-audit:
-          name: "ruby-3_0-bundle_audit"
-          e: "ruby_3_0"
+          name: "ruby-3_4-bundle_audit"
+          e: "ruby_3_4"
       - rubocop:
-          name: "ruby-3_0-rubocop"
-          e: "ruby_3_0"
+          name: "ruby-3_4-rubocop"
+          e: "ruby_3_4"
       - rspec-unit:
-          name: "ruby-3_0-rspec"
-          e: "ruby_3_0"
-  ruby_3_1:
+          name: "ruby-3_4-rspec"
+          e: "ruby_3_4"
+  ruby_4_0:
     jobs:
       - bundle-audit:
-          name: "ruby-3_1-bundle_audit"
-          e: "ruby_3_1"
+          name: "ruby-4_0-bundle_audit"
+          e: "ruby_4_0"
       - rubocop:
-          name: "ruby-3_1-rubocop"
-          e: "ruby_3_1"
+          name: "ruby-4_0-rubocop"
+          e: "ruby_4_0"
       - rspec-unit:
-          name: "ruby-3_1-rspec"
-          e: "ruby_3_1"
-  ruby_3_2:
-    jobs:
-      - bundle-audit:
-          name: "ruby-3_2-bundle_audit"
-          e: "ruby_3_2"
-      - rubocop:
-          name: "ruby-3_2-rubocop"
-          e: "ruby_3_2"
-      - rspec-unit:
-          name: "ruby-3_2-rspec"
-          e: "ruby_3_2"
+          name: "ruby-4_0-rspec"
+          e: "ruby_4_0"

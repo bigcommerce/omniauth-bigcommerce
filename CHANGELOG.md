@@ -2,6 +2,10 @@ Changelog for the omniauth-bigcommerce gem.
 
 ### Pending release
 
+- Upgrade `oauth2` gem to `>= 2.0.22, < 3` to address [GHSA-pp92-crg2-gfv9](https://github.com/ruby-oauth/oauth2/security/advisories/GHSA-pp92-crg2-gfv9) (protocol-relative redirect leaking bearer tokens)
+- Explicitly set `auth_scheme: :request_body` to preserve client-credential behavior across the oauth2 2.x default change to `:basic_auth`
+- Drop support for Ruby < 3.3; supported versions are now Ruby 3.3, 3.4, and 4.0
+
 ### 0.5.0
 
 - Ensure `oauth2` gem is below 2.0

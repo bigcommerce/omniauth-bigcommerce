@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'faraday'
 
 RSpec.describe OmniAuth::Strategies::BigCommerce do
   let(:store_hash) { 'abcdefg' }
@@ -78,6 +79,45 @@ RSpec.describe OmniAuth::Strategies::BigCommerce do
       expect(subject.token_params['context']).to eq(context)
       expect(subject.token_params['scope']).to eq(scope)
       expect(subject.token_params['account_uuid']).to eq(account_uuid)
+    end
+  end
+
+  # Regression guard for the oauth2 1.x -> 2.x upgrade: oauth2 2.x changed the
+  # default auth_scheme from :request_body to :basic_auth, which would move the
+  # client credentials from the POST body into a Basic Authorization header.
+  # BigCommerce's token endpoint expects them in the body, so assert the wire
+  # behavior rather than just the option value.
+  describe 'token request credential placement' do
+    subject { OmniAuth::Strategies::BigCommerce.new(nil, 'the-client-id', 'the-secret') }
+
+    let(:captured_request) { {} }
+
+    before do
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.post('/oauth2/token') do |env|
+          captured_request[:body] = env.request_body
+          captured_request[:authorization] = env.request_headers['Authorization']
+          [200, { 'Content-Type' => 'application/json' }, '{"access_token":"tok"}']
+        end
+      end
+      client = subject.client
+      test_connection = Faraday.new(client.site) do |builder|
+        builder.request :url_encoded
+        builder.adapter :test, stubs
+      end
+      client.instance_variable_set(:@connection, test_connection)
+      allow(subject).to receive(:client).and_return(client)
+
+      subject.client.auth_code.get_token('the-code', redirect_uri: 'https://app.example/callback')
+    end
+
+    it 'sends the client credentials in the request body' do
+      expect(captured_request[:body]).to include('client_id=the-client-id')
+      expect(captured_request[:body]).to include('client_secret=the-secret')
+    end
+
+    it 'does not send the client credentials in a Basic Authorization header' do
+      expect(captured_request[:authorization]).to be_nil
     end
   end
 end
