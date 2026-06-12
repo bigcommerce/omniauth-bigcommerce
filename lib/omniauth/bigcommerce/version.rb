@@ -17,6 +17,6 @@
 #
 module OmniAuth
   module BigCommerce
-    VERSION = '6.0.0'
+    VERSION = '0.6.0'
   end
 end
