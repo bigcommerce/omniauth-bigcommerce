@@ -1,5 +1,11 @@
 Changelog for the omniauth-bigcommerce gem.
 
+### Pending release
+
+- Fix `credentials` block to return the bearer token string (`access_token.token`) rather than the full `OAuth2::AccessToken` object; also restores `refresh_token`, `expires_at`, and `expires` fields that the previous override was silently dropping
+- Fix `callback_url` double-prepending `script_name` in mounted Rack apps — `OmniAuth::Strategy#callback_path` already includes `script_name`, so the override no longer adds it again
+- Tighten `omniauth-oauth2` lower bound to `>= 1.7.3` to prevent a Bundler `VersionConflict` with `oauth2 >= 2.0.22` for consumers that would otherwise resolve to 1.5.0–1.7.2
+
 ### 0.6.0
 
 - Upgrade `oauth2` gem to `>= 2.0.22, < 3` to address [GHSA-pp92-crg2-gfv9](https://github.com/ruby-oauth/oauth2/security/advisories/GHSA-pp92-crg2-gfv9) (protocol-relative redirect leaking bearer tokens)
