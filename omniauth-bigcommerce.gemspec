@@ -33,6 +33,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'oauth2', '>= 2.0.22', '< 3'
   gem.add_dependency 'omniauth'
-  gem.add_dependency 'omniauth-oauth2', '>= 1.5'
+  gem.add_dependency 'omniauth-oauth2', '>= 1.7.3'
   gem.metadata['rubygems_mfa_required'] = 'true'
 end
