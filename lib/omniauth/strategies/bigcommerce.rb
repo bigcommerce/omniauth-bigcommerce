@@ -67,8 +67,10 @@ module OmniAuth
 
       # Exclude query string in callback url. This used to be part of omniauth-oauth2, but was
       # removed in 1.4.0: https://github.com/intridea/omniauth-oauth2/pull/70
+      # Note: callback_path already includes script_name (omniauth/strategy.rb#L458), so we
+      # must not prepend script_name again here.
       def callback_url
-        full_host + script_name + callback_path
+        full_host + callback_path
       end
 
       # Make sure to pass scope and context through to the authorize call
